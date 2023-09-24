@@ -1,6 +1,8 @@
 package com.self.probe.controller;
 
+import com.self.probe.model.DroidList;
 import com.self.probe.service.ApplicationService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,5 +29,11 @@ public class MainController {
     @PostMapping("/createDroid")
     public ResponseEntity<?> createDroid(@RequestParam(value = "name") String name) {
         return service.createNewDroid(name);
+    }
+
+    @GetMapping("showAllDroids")
+    public ResponseEntity<DroidList> getAllDroids()
+    {
+        return service.getAllDroids();
     }
 }
