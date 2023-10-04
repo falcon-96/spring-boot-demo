@@ -1,14 +1,16 @@
 package com.self.probe.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
+import jakarta.validation.constraints.NotEmpty;
 
-@Component
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Droid {
-    private String name;
+
+public record Droid(
+
+        @NotEmpty(message = "name cannot be null")
+        String name,
+
+        @NotEmpty(message = "model cannot be null")
+        String model
+) {
+
 }
+

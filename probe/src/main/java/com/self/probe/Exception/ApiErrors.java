@@ -1,14 +1,20 @@
-package com.self.probe.model;
+package com.self.probe.Exception;
+
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+import java.util.List;
+
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JsonResponse {
-    private String message;
+public class ApiErrors {
+
+    private List<String> messages;
     private HttpStatus status;
 }
