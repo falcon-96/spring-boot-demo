@@ -2,19 +2,9 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
-      <option name="id" value="com.springsource.repository.libraries.external" />
-      <option name="name" value="SpringSource Enterprise Bundle Repository - External Library Releases" />
-      <option name="url" value="http://repository.springsource.com/maven/libraries/external" />
-    </remote-repository>
-    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="com.springsource.repository.libraries.release" />
-      <option name="name" value="SpringSource Enterprise Bundle Repository - SpringSource Library Releases" />
-      <option name="url" value="http://repository.springsource.com/maven/libraries/release" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="spring-milestones" />
