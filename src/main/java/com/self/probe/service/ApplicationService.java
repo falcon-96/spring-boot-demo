@@ -1,8 +1,6 @@
 package com.self.probe.service;
 
 import com.self.probe.model.Droid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -18,35 +16,36 @@ import java.util.Map;
 @Service
 public class ApplicationService {
 
-    private static final Logger log = LoggerFactory.getLogger(ApplicationService.class);
     @Autowired
     JdbcTemplate jdbcTemplate;
 
     public ResponseEntity<String> createNewDroid(Droid droid) {
+
         try {
             jdbcTemplate.update("INSERT INTO DROIDS(NAME, MODEL) VALUES(?,?)", droid.name(), droid.model());
         } catch (DataAccessException e) {
-            log.info("Error in inserting element");
             throw e;
         }
+
         return ResponseEntity.status(HttpStatus.OK).body("Successfully Added: [" + droid.name() + "]");
 
     }
 
-    public ResponseEntity<List<Map<String, Object>>> getAllDroids() {
+    public ResponseEntity<?> getAllDroids() {
         String sql = "SELECT * FROM DROIDS";
         try {
             List<Map<String, Object>> droids = jdbcTemplate.queryForList(sql);
 
-            return ResponseEntity.status(HttpStatus.OK).body(droids);
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(droids);
         } catch (DataAccessException e) {
-            log.error("Error in getting all items.");
             throw e;
         }
 
     }
 
     public ResponseEntity<String> updateName(Droid droid) {
+        String checkSql = "SELECT * FROM DROIDS WHERE NAME = ?";
         String updateSql = "UPDATE DROIDS SET MODEL=? WHERE NAME=?";
 
         try {
@@ -61,7 +60,6 @@ public class ApplicationService {
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No droid with :" + droid.name());
         } catch (DataAccessException e) {
-            log.error("Error in executing update.");
             throw e;
         }
     }
@@ -79,7 +77,6 @@ public class ApplicationService {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No droid with :" + name);
             }
         } catch (DataAccessException e) {
-            log.error("Error in deleting.");
             throw e;
         }
 

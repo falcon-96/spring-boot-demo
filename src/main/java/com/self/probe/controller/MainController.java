@@ -6,9 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api")
 public class MainController {
@@ -25,7 +22,7 @@ public class MainController {
     }
 
     @GetMapping("showAllDroids")
-    public ResponseEntity<List<Map<String, Object>>> getAllDroids() {
+    public ResponseEntity<?> getAllDroids() {
         return service.getAllDroids();
     }
 
