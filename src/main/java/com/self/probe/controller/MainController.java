@@ -36,9 +36,4 @@ public class MainController {
         return service.deleteDroid(name);
     }
 
-
-    @GetMapping("/hello")
-    public String testHello() {
-        return "Hello, World!";
-    }
 }
