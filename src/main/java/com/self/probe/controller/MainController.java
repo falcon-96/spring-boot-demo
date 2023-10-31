@@ -38,4 +38,10 @@ public class MainController {
     public ResponseEntity<String> deleteDroid(@RequestParam("name") String name) {
         return service.deleteDroid(name);
     }
+
+
+    @GetMapping("/hello")
+    public String testHello() {
+        return "Hello, World!";
+    }
 }
