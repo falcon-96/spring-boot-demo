@@ -1,7 +1,7 @@
-# Sample Spring Boot Application with H2, Java Record, JDBCTemplate
+# Sample Spring Boot Application with H2, Java Record, JdbcClient
 
 - Java Version: 18
-- Spring Boot Version: 3.2.0-M3
+- Spring Boot Version[Updated]: 3.2.2
 - Database: H2
 
 **Summary**:
