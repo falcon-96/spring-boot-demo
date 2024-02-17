@@ -1,4 +1,4 @@
-package com.self.probe.Exception;
+package com.self.probe.exception;
 
 
 import lombok.AllArgsConstructor;
@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiErrors {
-
     private List<String> messages;
     private HttpStatus status;
 }

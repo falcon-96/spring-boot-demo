@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class MainController {
@@ -22,7 +25,7 @@ public class MainController {
     }
 
     @GetMapping("showAllDroids")
-    public ResponseEntity<?> getAllDroids() {
+    public ResponseEntity<List<Map<String, Object>>> getAllDroids() {
         return service.getAllDroids();
     }
 
@@ -35,5 +38,4 @@ public class MainController {
     public ResponseEntity<String> deleteDroid(@RequestParam("name") String name) {
         return service.deleteDroid(name);
     }
-
 }
