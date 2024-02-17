@@ -1,11 +1,11 @@
-package com.self.probe.Exception;
+package com.self.probe.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class Handler {
 
-    private static Logger log = LoggerFactory.getLogger(Handler.class);
+    private static final Logger log = LoggerFactory.getLogger(Handler.class);
 
-    private final JdbcTemplate jdbcTemplate;
+    private final JdbcClient jdbcClient;
 
-    public Handler(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public Handler(JdbcClient jdbcClient) {
+        this.jdbcClient = jdbcClient;
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -31,11 +31,14 @@ public class Handler {
                 .getFieldErrors()
                 .stream()
                 .map(fieldError -> fieldError.getField() + ":" + fieldError.getDefaultMessage())
-                .collect(Collectors.joining(", ","[","]"));
+                .collect(Collectors.joining(", ", "[", "]"));
 
 
-        String sql = "INSERT INTO RESPONSE_ERRORS(MESSAGE, DATETIME) VALUES(?,?)";
-        jdbcTemplate.update(sql, errors, LocalDateTime.now());
+        String query = "INSERT INTO RESPONSE_ERRORS(MESSAGE, DATETIME) VALUES(?,?)";
+        jdbcClient.sql(query)
+                .param(errors)
+                .param(LocalDateTime.now())
+                .update();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
